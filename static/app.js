@@ -30,3 +30,5 @@ function mostrarResultados(data) {
     }
   }
 }
+const buscarButton = document.getElementById("buscarButton");
+buscarButton.addEventListener("click", buscarUsuario);

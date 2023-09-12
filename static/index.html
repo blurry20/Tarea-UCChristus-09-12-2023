@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="http://localhost:8000/static/styles.css" />
   </head>
-  <body></body>
+  <body>
+    <h1>Buscar Usuario</h1>
+
+    <label for="campo">Buscar por Rut o Email:</label>
+    <input type="text" id="campo" placeholder="Ingrese el Rut o Email" />
+    <select id="tipoBusqueda">
+      <option value="id">Buscar por Rut</option>
+      <option value="email">Buscar por Email</option>
+    </select>
+
+    <button id="buscarButton" onclick="buscarUsuario()">Buscar</button>
+
+    <div id="resultado"></div>
+
+    <script src="/static/app.js"></script>
+  </body>
 </html>

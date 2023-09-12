@@ -32,3 +32,32 @@ def conexion_db():
     except sqlite3.Error as error:
         print("Error al conectar con la base de datos", error)
         return None
+
+
+@app.get("/buscar/id/{id}")
+def buscar_por_rut(id: int):
+    conn = conexion_db()
+    if conn is None:
+        return JSONResponse(content={"error": "Error al conectar con la base de datos"}, status_code=500)
+
+    try:
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute('''SELECT * FROM datos WHERE id=?''', (id,))
+            datos = cursor.fetchall()
+
+            if datos:
+                usuarios = [{
+                    "id": row[0],
+                    "first_name": row[1],
+                    "last_name": row[2],
+                    "email": row[3],
+                    "gender": row[4],
+                    "Plan de Salud": row[5],
+                    "phone": row[6]}
+                    for row in datos]
+                return {"usuarios": usuarios}
+            else:
+                return JSONResponse(content={"error": "No se encontró el usuario"}, status_code=404)
+    except sqlite3.Error as error:
+        return JSONResponse(content={"error": str(error)}, status_code=500)

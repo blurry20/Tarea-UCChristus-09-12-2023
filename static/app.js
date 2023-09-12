@@ -10,3 +10,23 @@ async function buscarUsuario() {
     console.error("Error al buscar usuario:", error);
   }
 }
+function mostrarResultados(data) {
+  const resultadoDiv = document.getElementById("resultado");
+  resultadoDiv.innerHTML = "";
+
+  if (data.error) {
+    resultadoDiv.textContent = `Error: ${data.error}`;
+  } else if (Array.isArray(data.usuarios)) {
+    if (data.usuarios.length === 0) {
+      resultadoDiv.textContent = "No se encontraron usuarios.";
+    } else {
+      const ul = document.createElement("ul");
+      data.usuarios.forEach((usuario) => {
+        const li = document.createElement("li");
+        li.textContent = `ID: ${usuario.id}, Nombre: ${usuario.first_name}, Apellido: ${usuario.last_name}, Email: ${usuario.email}, Género: ${usuario.gender}, Plan de Salud: ${usuario["Plan de Salud"]}, Teléfono: ${usuario.phone}`;
+        ul.appendChild(li);
+      });
+      resultadoDiv.appendChild(ul);
+    }
+  }
+}

@@ -90,3 +90,8 @@ def buscar_por_email(email: str):
                 return JSONResponse(content={"error": "No se encontró el usuario"}, status_code=404)
     except sqlite3.Error as error:
         return JSONResponse(content={"error": str(error)}, status_code=500)
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
